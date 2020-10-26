@@ -29,6 +29,24 @@ var AppleWallet = {
         });
     },
     /**
+     * @function isLibraryAvailable
+     * @description a function to determine if the current app has a passlibrary
+     * @param {Function} [successCallback] - Optional success callback, recieves message object.
+     * @param {Function} [errorCallback] - Optional error callback, recieves message object.
+     * @returns {Promise<boolean>} - boolean value ensures that wallet is isAvailable
+     */
+    isLibraryAvailable: function(successCallback, errorCallback) {
+        return new Promise(function(resolve, reject) {
+            exec(function(message) {
+                executeCallback(successCallback, message);
+                resolve(message);
+            }, function(message) {
+                executeCallback(errorCallback, message);
+                reject(message);
+            }, PLUGIN_NAME, 'isAvailable', []);
+        });
+    },
+    /**
      * @function checkCardEligibility
      * @description to check out if card eligable to be added
      * @param {primaryAccountIdentifier} [String] - Your card unique identifier that used in card in-app provisioning
@@ -58,6 +76,7 @@ var AppleWallet = {
 	checkCardEligibilityBySuffix: function(cardSuffix, successCallback, errorCallback) {
         return new Promise(function(resolve, reject) {
             exec(function(message) {
+                console.log("WALLET: elBySuff OK")
                 executeCallback(successCallback, message);
                 resolve(message);
             }, function(message) {
@@ -113,10 +132,13 @@ var AppleWallet = {
      */
     startAddPaymentPass: function(cardData, successCallback, errorCallback) {
         return new Promise(function(resolve, reject) {
+            console.log("WALLET: startAddPayment")
             exec(function(message) {
+                console.log("WALLET: " + message)
                 executeCallback(successCallback, message);
                 resolve(message);
             }, function(message) {
+                console.log("WALLET: startAddPayment FAIL")
                 executeCallback(errorCallback, message);
                 reject(message);
             }, PLUGIN_NAME, 'startAddPaymentPass', [cardData]);

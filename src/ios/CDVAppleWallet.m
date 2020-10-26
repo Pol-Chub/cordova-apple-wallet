@@ -46,6 +46,14 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
     [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
 }
 
+// Plugin Method - check pass library 
+- (void) isLibraryAvailable:(CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[AppleWallet isPassLibraryAvailable]];
+    [commandResult setKeepCallback:[NSNumber numberWithBool:YES]];
+    [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
+}
+
 // Plugin Method - check Card Eligibility
 - (void) checkCardEligibility:(CDVInvokedUrlCommand*)command {
     NSString * cardIdentifier = [command.arguments objectAtIndex:0];

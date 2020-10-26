@@ -14,6 +14,7 @@
 @interface AppleWallet : CDVPlugin
 
 - (void) isAvailable:(CDVInvokedUrlCommand*)command;
+- (void) isLibraryAvailable:(CDVInvokedUrlCommand*)command;
 - (void) checkCardEligibility:(CDVInvokedUrlCommand*)command;
 - (void) checkCardEligibilityBySuffix:(CDVInvokedUrlCommand*)command;
 
